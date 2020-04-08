@@ -3,13 +3,17 @@ Read file into texts and calls.
 It's ok if you don't understand how to read files.
 """
 import csv
+
 with open('texts.csv', 'r') as f:
     reader = csv.reader(f)
     texts = list(reader)
+print("First record of texts, {0} texts {1} at time {2}".format(texts[0][0],texts[0][1],texts[0][2]))
 
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
+l=len(calls)
+print("Last record of calls, {0} calls {1} at time {2}, lasting {3} seconds".format(calls[l-1][0],calls[l-1][1],calls[l-1][2],calls[l-1][3]))
 
 
 """

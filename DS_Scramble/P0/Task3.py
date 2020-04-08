@@ -4,14 +4,34 @@ It's ok if you don't understand how to read files.
 """
 import csv
 
-with open('texts.csv', 'r') as f:
-    reader = csv.reader(f)
-    texts = list(reader)
-
 with open('calls.csv', 'r') as f:
     reader = csv.reader(f)
     calls = list(reader)
-
+prefixCalledToSet=set()
+noOfCallsToBang=0
+TotNoOfCalls=0
+for call in calls:
+    calledBy=call[0]
+    calledTo=call[1]
+    if(calledBy.startswith("(080)")):
+        TotNoOfCalls+=1
+        if(calledTo.startswith("(080)")):
+            noOfCallsToBang+=1
+            prefixCalledToSet.add("(080)")
+        elif(calledTo.startswith("(")):
+            areacode=calledTo.split(")")[0]+")"
+            prefixCalledToSet.add(areacode)
+        elif(calledTo.find(" ")):
+            prefixCalledToSet.add(calledTo[0:4])
+        elif(calledTo.startswith("140")):
+            prefixCalledToSet.add("140")
+areacodes=sorted(list(prefixCalledToSet))
+percCallsToBang=float(noOfCallsToBang)/float(TotNoOfCalls)
+print("The numbers called by people in Bangalore have codes:")
+for code in areacodes:
+    print(code)
+print("{0:.2%} percent of calls from fixed lines in Bangalore are calls to other fixed lines in Bangalore.".format(percCallsToBang))
+        
 """
 TASK 3:
 (080) is the area code for fixed line telephones in Bangalore.
