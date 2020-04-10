@@ -1,0 +1,44 @@
+n- number of records in calls.csv
+m - number of records in texts.csv
+let p=n+m
+x- number of area codes (from Task 3)
+y- number of telemarketer number returned from Task 4
+
+********************************************************************************************
+Task 0
+Time complexity O(1)
+ As we are only fetching first or last items using index in this task, time complexity is O(1)
+********************************************************************************************
+Task 1
+Time Complexity - O(p) , where p=n+m 
+iterating through CallList and TextList once. while iterating, we are storing unique numbers with the help of set. hence time complexity O(n+m)
+***************************************************************************************************
+Task 2
+Time Complexity - O(n) 
+Task to find phone number which is in call for longest duration. we are iterating  CallsList and saving phonenumber &  call's Duration in HashMap. 
+we are keeping track of phonenumber which is in call for longest duration at any point of time, reduces time complexity
+ 
+********************************************************************************************
+Task 3:
+Time Complexity - O(n*log(n))
+Task to list, area codes of phone number , called by bangalore fixed line (080)
+Step 1: 
+O(n) - saving the area codes to 'To' number in 'Set', by iterating CallsList
+Step 2:
+O(nlog(n)) - sorted items in 'Set' using built-in sorted method
+Step 3 :
+o(x) - iterating through 'Area code' set and print them
+hence time complexity O(n+ nlog(n) + x) , simplified to O(nlog(n))
+ ********************************************************************************************
+Task 4:
+Time Complexity= O(p*log(p))
+Step 1:
+O(n+m) - iterating though CallsList and TextList to find possible telemarketer numbers
+Step 2:
+O(ylog(y)) - Sorting filtered telemarketer numbers
+Step 3:
+O(y) - print telemarketer numbers
+hence time complexity O(n+m + y log(y) + y). 
+in worst case scenario is all numbers are telemarketer numbers
+Let p is m+n,
+simplified time complexity is O(p*log(p))

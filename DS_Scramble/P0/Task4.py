@@ -15,8 +15,8 @@ with open('calls.csv', 'r') as f:
     calls = list(reader)
 for call in calls:
     calledBy=call[0]
-    if(calledBy.startswith("140")):
-        teleNums.add(calledBy)
+    #if(calledBy.startswith("140")):
+    teleNums.add(calledBy)
     calledTo=call[1]
     if calledTo in teleNums:
         teleNums.remove(calledTo)
@@ -27,10 +27,13 @@ for text in texts:
     textTo=text[1]
     if textTo in teleNums:
         teleNums.remove(textTo)
-teleNumList=sorted(list(teleNums))
+teleNums=sorted(teleNums)
 print("These numbers could be telemarketers: ")
-for num in teleNumList:
+for num in teleNums:
     print(num)
+print(len(teleNums))
+print(len(texts))
+print(len(calls))
 """
 TASK 4:
 The telephone company want to identify numbers that might be doing

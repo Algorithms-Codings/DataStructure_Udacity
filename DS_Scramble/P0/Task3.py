@@ -25,7 +25,7 @@ for call in calls:
             prefixCalledToSet.add(calledTo[0:4])
         elif(calledTo.startswith("140")):
             prefixCalledToSet.add("140")
-areacodes=sorted(list(prefixCalledToSet))
+areacodes=sorted(prefixCalledToSet)
 percCallsToBang=float(noOfCallsToBang)/float(TotNoOfCalls)
 print("The numbers called by people in Bangalore have codes:")
 for code in areacodes:
