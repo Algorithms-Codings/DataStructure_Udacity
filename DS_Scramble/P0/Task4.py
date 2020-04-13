@@ -32,9 +32,7 @@ teleNums=sorted(teleNums)
 print("These numbers could be telemarketers: ")
 for num in teleNums:
     print(num)
-print(len(teleNums))
-print(len(texts))
-print(len(calls))
+
 """
 TASK 4:
 The telephone company want to identify numbers that might be doing
