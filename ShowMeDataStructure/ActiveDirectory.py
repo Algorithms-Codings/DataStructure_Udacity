@@ -7,14 +7,14 @@ Created on Apr 14, 2020
 class Group(object):
     def __init__(self, _name):
         self.name = _name
-        self.groups = []
-        self.users = []
+        self.groups = set()
+        self.users = set()
 
     def add_group(self, group):
-        self.groups.append(group)
+        self.groups.add(group)
 
     def add_user(self, user):
-        self.users.append(user)
+        self.users.add(user)
 
     def get_groups(self):
         return self.groups
@@ -34,14 +34,20 @@ def is_user_in_group(user, group):
       user(str): user name/id
       group(class:Group): group to check user membership against
     """
+    traversed_groups=set()
+    return is_in_group_(user, group,traversed_groups)
+
+def is_in_group_(user, group,traversed_groups):
     users=group.get_users()
+    traversed_groups.add(group)
     if user in users:
         return True
     else:
         groups=group.get_groups()
-        for g in groups:
-            if is_user_in_group(user, g):
-                return True
+        for g in groups:           
+            if g  not in traversed_groups: #if group is checked already, no need to check again
+                if is_user_in_group(user, g):
+                    return True
     return False
 
 parent = Group("parent")
@@ -62,6 +68,9 @@ parent.add_group(child2)
 
 child3.add_group(sub_child3)
 parent.add_group(child3)
+
+child3.add_group(sub_child1)
+
 
 
 sub_child_user1 = "sub_child_user1"
