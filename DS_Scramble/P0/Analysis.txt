@@ -33,12 +33,12 @@ hence time complexity O(n+ nlog(n) + x) , simplified to O(nlog(n))
 Task 4:
 Time Complexity= O(p*log(p))
 Step 1:
-O(n+m) - iterating though CallsList and TextList to find possible telemarketer numbers
+O(2n+m) - iterating though CallsList and TextList to find possible telemarketer numbers
 Step 2:
 O(ylog(y)) - Sorting filtered telemarketer numbers
 Step 3:
 O(y) - print telemarketer numbers
-hence time complexity O(n+m + y log(y) + y). 
+hence time complexity O(2n+m + y log(y) + y). 
 in worst case scenario is all numbers are telemarketer numbers
 Let p is m+n,
 simplified time complexity is O(p*log(p))

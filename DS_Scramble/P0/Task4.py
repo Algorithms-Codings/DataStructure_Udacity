@@ -17,6 +17,7 @@ for call in calls:
     calledBy=call[0]
     #if(calledBy.startswith("140")):
     teleNums.add(calledBy)
+for call in calls:
     calledTo=call[1]
     if calledTo in teleNums:
         teleNums.remove(calledTo)

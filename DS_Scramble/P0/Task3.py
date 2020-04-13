@@ -21,7 +21,7 @@ for call in calls:
         elif(calledTo.startswith("(")):
             areacode=calledTo.split(")")[0]+")"
             prefixCalledToSet.add(areacode)
-        elif(calledTo.find(" ")):
+        elif(calledTo.find(" ")  and (calledTo.startswith("7") or calledTo.startswith("8") or calledTo.startswith("9"))):
             prefixCalledToSet.add(calledTo[0:4])
         elif(calledTo.startswith("140")):
             prefixCalledToSet.add("140")
