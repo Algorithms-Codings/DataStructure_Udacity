@@ -1,3 +1,4 @@
+#completed
 '''
 Created on Apr 14, 2020
 
@@ -13,8 +14,10 @@ class Node:
 
 
 class LinkedList:
-    def __init__(self):
+    def __init__(self,element_list):
         self.head = None
+        for i in element_list:
+            self.append(i)
 
     def __str__(self):
         cur_head = self.head
@@ -59,7 +62,7 @@ def union(llist_1, llist_2):
     lset2=llist_2.convertToSet()
     lset3=lset1.union(lset2)
     #create resultant linked list
-    llist3=LinkedList()
+    llist3=LinkedList([])
     for i in lset3:
         llist3.append(i)
     return llist3
@@ -71,7 +74,7 @@ def intersection(llist_1, llist_2):
     lset2=llist_2.convertToSet()
     lset3=lset1.intersection(lset2)
     #create resultant linked list
-    llist3=LinkedList()
+    llist3=LinkedList([])
     for i in lset3:
         llist3.append(i)
     return llist3
@@ -80,17 +83,8 @@ def intersection(llist_1, llist_2):
 
 # Test case 1
 
-linked_list_1 = LinkedList()
-linked_list_2 = LinkedList()
-
-element_1 = [3,2,4,35,6,65,6,4,3,21]
-element_2 = [6,32,4,9,6,1,11,21,1]
-
-for i in element_1:
-    linked_list_1.append(i)
-
-for i in element_2:
-    linked_list_2.append(i)
+linked_list_1 = LinkedList([3,2,4,35,6,65,6,4,3,21])
+linked_list_2 = LinkedList([6,32,4,9,6,1,11,21,1])
 print("*******************TestCase1***************")
 print("*******************TestCase1- Union***************")
 print (union(linked_list_1,linked_list_2))
@@ -99,17 +93,8 @@ print (intersection(linked_list_1,linked_list_2))
 
 # Test case 2
 
-linked_list_3 = LinkedList()
-linked_list_4 = LinkedList()
-
-element_1 = [3,2,4,35,6,65,6,4,3,23]
-element_2 = [1,7,8,9,11,21,1]
-
-for i in element_1:
-    linked_list_3.append(i)
-
-for i in element_2:
-    linked_list_4.append(i)
+linked_list_3 = LinkedList([3,2,4,35,6,65,6,4,3,23])
+linked_list_4 = LinkedList([1,7,8,9,11,21,1])
 print("*******************TestCase2***************")
 print("*******************TestCase2- Union***************")
 

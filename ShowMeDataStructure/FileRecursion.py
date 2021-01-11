@@ -1,3 +1,10 @@
+#completed
+"""
+For this problem, the goal is to write code for finding all files under a directory
+ (and all directories beneath it) that end with ".c"
+"""
+
+
 from os.path import isdir
 from os.path import isfile
 from os import listdir
@@ -42,6 +49,6 @@ def find_files(suffix, path):
     else:
         return None
 
-files=find_files("c","C:/Users/Rajeswari_S/git/DS_Scramble/ShowMeDataStructure/testdir")
+files=find_files("c","E:/Udacity_DataStr/DataStructure_Udacity/ShowMeDataStructure/testdir")
 for f in files:
     print(f)

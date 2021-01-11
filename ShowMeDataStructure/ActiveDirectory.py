@@ -1,3 +1,4 @@
+#completed
 '''
 Created on Apr 14, 2020
 
@@ -50,6 +51,7 @@ def is_in_group_(user, group,traversed_groups):
                     return True
     return False
 
+
 parent = Group("parent")
 
 child1 = Group("child1")
@@ -95,7 +97,7 @@ parent.add_user(parent_user1)
 parent.add_user(parent_user2)
 parent.add_user(parent_user3)
 
-if is_user_in_group("sub_child_user1", child2):
+if is_user_in_group("parent_user1", parent):
     print("present in group")
 else:
     print("Not present in group")
