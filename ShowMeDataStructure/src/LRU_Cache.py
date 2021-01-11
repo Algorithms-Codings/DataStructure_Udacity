@@ -6,8 +6,7 @@ Created on Apr 8, 2020
 '''
 
 class Node(object):
-    def __init__(self,key,value):
-        self.key=key
+    def __init__(self,value):
         self.value=value
         self.prev=None
         self.next=None
@@ -17,8 +16,8 @@ class LinkedList(object):
         self.head=None #Least recently used key
         self.tail=None #most recently used key
         
-    def addMostRecentlyItem(self,key,value): #add element in Linked List whenever  new element is added
-        n=Node(key,value)
+    def addMostRecentlyItem(self,value): #add element in Linked List whenever  new element is added
+        n=Node(value)
         if self.head is None:
             self.head=n
             self.tail=self.head
@@ -55,10 +54,8 @@ class LinkedList(object):
             self.tail.next=None
             #print("after moving head to tail side")
             #self.print()
-        else:
-            node=self.head
-            while node.key!=cnode.key:
-                node=node.next 
+        else:            
+            node=cnode
             prevNode=node.prev
             nextNode=node.next
             
@@ -69,29 +66,12 @@ class LinkedList(object):
             node.prev=self.tail
             node.next=None
             self.tail=node
-            #print("CurrNode -> [{0},{1}]".format(cnode.key,cnode.value))            
-            #prevNode=cnode.prev
-            #print("prevNode -> [{0},{1}]".format(prevNode.key,prevNode.value))            
-            #nextNode=cnode.next
-            #print("NextNode -> [{0},{1}]".format(nextNode.key,nextNode.value))
-            #prevNode.next=cnode.next
-            #nextNode.prev=prevNode
-            #self.tail.next=cnode
-            #cnode.prev=self.tail
-            #cnode.next=None
-            #self.tail=cnode
-    def print(self):
-        print("Left to Right->")
+                
+    def print(self):        
         node=self.head
         while node is not None:
-            print("[{0},{1}]".format(node.key,node.value))
+            print("{}".format(node.value),end=",")
             node=node.next
-        print("Right to Left->")
-        node=self.tail
-        while node is not None:
-            print("[{0},{1}]".format(node.key,node.value))
-            node=node.prev
-            
         
 class LRU_Cache(object):
 
@@ -113,19 +93,16 @@ class LRU_Cache(object):
             return -1        
         pass
 
-    def set(self, key, value):
+    def set(self, key):
         # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item.
         if key in self.cache:
             return
         if self.isCacheFull():
             lNode=self.LRU.getLeastRecentlyItem()
             self.LRU.removeLeastRecentlyItem()
-            self.cache.pop(lNode.key)
+            self.cache.pop(lNode.value)
             self.no_elements-=1            
-        n=self.LRU.addMostRecentlyItem(key,value)
-        #print("Node -> [{0},{1}]".format(n.key,n.value))            
-        #print("prevNode -> [{0},{1}]".format(n.prev.key,n.prev.value))            
-        #print("nextNode -> [{0},{1}]".format(n.next.key,n.next.value))            
+        n=self.LRU.addMostRecentlyItem(key)           
 
         self.no_elements+=1
         self.cache[key]=n
@@ -137,61 +114,3 @@ class LRU_Cache(object):
         return self.no_elements==self.MAX_SIZE
     def print(self):
         self.LRU.print()
-
-our_cache = LRU_Cache(5)
-
-our_cache.set(1, 1);
-print("after adding [1,1] ->")
-our_cache.print()
-
-our_cache.set(2, 2);
-print("after adding [2,2] ->")
-our_cache.print()
-
-our_cache.set(3, 3);
-print("after adding [3,3] ->")
-our_cache.print()
-
-our_cache.set(4, 4);
-print("after adding [4,4] ->")
-our_cache.print()
-
-
-print("get 1,",our_cache.get(1))       # returns 1
-print("after get 1 ->")
-our_cache.print()
-
-print("get 2,",our_cache.get(2))       # returns 2
-print("after get 2 ->")
-our_cache.print()
-
-print("get 9",our_cache.get(9))      # returns -1 because 9 is not present in the cache
-print("after get 9 ->")
-our_cache.print()
-
-our_cache.set(5, 5)
-print("after adding [5,5] ->")
-our_cache.print()
-
-our_cache.set(6, 6)
-print("after adding [6,6] ->")
-our_cache.print()
-
-
-print("get 3,",our_cache.get(3))      # returns -1 because the cache reached it's capacity and 3 was the least recently used entry
-print("after get 3 ->")
-our_cache.print()
-
-print("get 2,",our_cache.get(2))       # returns 2
-print("after get 2 ->")
-our_cache.print()
-
-
-print("get 6 ,",our_cache.get(6))       # returns 6
-print("after get 6 ->")
-our_cache.print()
-
-
-print("get 1 ,",our_cache.get(1))       # returns 1
-print("after get 1 ->")
-our_cache.print()

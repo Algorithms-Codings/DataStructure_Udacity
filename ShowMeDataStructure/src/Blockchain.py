@@ -2,6 +2,7 @@
 from datetime import datetime
 
 import hashlib
+from envs.flappybird.Lib.pickle import NONE
 
 class Block:
 
@@ -19,13 +20,44 @@ class Block:
       sha.update(hash_str)
       return sha.hexdigest()
   
+
     def __repr__(self):
         return str(self.timestamp) + str(" | ") + str(self.data) + str(" | ") + str(self.previous_hash) + str(" | ") + str(self.hash)
 
-class BlockChain:
+class BlockChain(object):
     def __init__(self):
-        self.head=None #root block
+        self.head=None 
         self.tail=None
+        self.size=0
+    def get_hashValue(self,data):
+        node=self.head
+        if(node is None):
+            return
+        while node:
+            if(node.data==data):
+                return node.hash
+            node=node.next
+        return None
+    def remove(self,data):        
+        node=self.head
+        if(node is None):
+            return
+        node_prev=None
+        if(node.data==data): #removing root node
+            self.head=node.next
+            self.head.previous_hash=0
+        else:
+            while node:
+                if(node.data==data):
+                    if(node.next is None): #removing node is last node
+                        node_prev.next=None
+                        
+                    else:
+                        node.next.previous_hash=node_prev.hash
+                        node_prev.next=node.next               
+                    return
+                node_prev=node
+                node=node.next
     def append(self, data):
         if data is None or data=="":
             return
@@ -36,7 +68,11 @@ class BlockChain:
         else:
             self.tail.next=Block(datetime.utcnow(), data, self.tail.hash)
             self.tail=self.tail.next
+        self.size=self.size+1
         return
+    
+    def getSize(self):
+        return self.size
     
     def toList(self):
         out = []
@@ -45,9 +81,3 @@ class BlockChain:
             out.append([block])
             block = block.next
         return out
-
-bl=BlockChain()
-bl.append( "First Data")
-bl.append("Second Data")
-bl.append( "Third Data")
-print(bl.toList())

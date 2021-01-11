@@ -6,7 +6,6 @@ Created on Apr 13, 2020
 '''
 
 import sys
-from comtypes.GUID import binary
 
 class Node(object):
     def __init__(self,char,freq,left=None,right=None,binary=None):
@@ -72,7 +71,7 @@ class HuffmanTree(object):
              
     def printSelf(self):
         if self.root is None:
-            print("root is emoty")
+            print("root is empty")
         else:
             self.printNodeDetails(self.root)
         pass
@@ -91,47 +90,36 @@ class HuffmanTree(object):
     
     
 
-
-def huffman_encoding(data):   
-    ht=HuffmanTree(data)
-    ht.generateTree()
-    encodedString=""
-    for c in data:
-        encodedString=encodedString + ht.binary[c]
-    return encodedString,ht       
-    pass
+class HuffmanCoding(object):
+    def __init__(self,data):
+        self.data=data
+    
+    def huffman_encoding(self): 
+        if(self.data is None or self.data==""):
+            self.encodedString=""
+            self.ht=""
+            return
+        ht=HuffmanTree(self.data)
+        ht.generateTree()
+        encodedString=""
+        for c in self.data:
+            encodedString=encodedString + ht.binary[c]
+        self.encodedString=encodedString
+        self.ht=ht       
+        pass
     
 
 
-def huffman_decoding(data,tree):
-    decodedString=""
-    tempString=""
-    while len(data)!=0:
-       #print("char=",tree.root.char,";freq=",tree.root.freq)
-       data,tempString=tree.returnNode(tree.root,data)
-       decodedString=decodedString+tempString
-       tempString="" 
-    return decodedString
+    def huffman_decoding(self):
+        if(self.encodedString is None or self.encodedString=="" or self.ht is None or self.ht ==""):
+            self.decodedString= ""
+            return
+        decodedString=""
+        tempString=""
+        while len(self.encodedString)!=0:
+            #print("char=",tree.root.char,";freq=",tree.root.freq)
+            self.encodedString,tempString=self.ht.returnNode(self.ht.root,self.encodedString)
+            decodedString=decodedString+tempString
+            tempString="" 
+        self.decodedString=decodedString
         
-
-if __name__ == "__main__":
-    codes = {}
-
-    a_great_sentence = "The bird is the word"
-    
-    #a_great_sentence = "My Name is Surender"
-
-
-    print ("The size of the data is: {}\n".format(sys.getsizeof(a_great_sentence)))
-    print ("The content of the data is: {}\n".format(a_great_sentence))
-
-    tree=huffman_encoding(a_great_sentence)
-    encoded_data, tree = huffman_encoding(a_great_sentence)
-    #tree.printSelf()
-    print ("The size of the encoded data is: {}\n".format(sys.getsizeof(int(encoded_data, base=2))))
-    print ("The content of the encoded data is: {}\n".format(encoded_data))
-
-    decoded_data = huffman_decoding(encoded_data, tree)
-
-    print ("The size of the decoded data is: {}\n".format(sys.getsizeof(decoded_data)))
-    print ("The content of the encoded data is: {}\n".format(decoded_data))
