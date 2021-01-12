@@ -2,6 +2,7 @@ from src.LRU_Cache  import LRU_Cache
 import unittest
 class LRUCacheTest(unittest.TestCase):
     def test_LRUCahce5(self):
+        print("******************TestCase 1***************")
         our_cache = LRU_Cache(5)
 
         our_cache.set(1,1)
@@ -74,6 +75,7 @@ class LRUCacheTest(unittest.TestCase):
         our_cache.print()
         print("\n**************")
     def test_LRUCahce2(self):
+        print("******************TestCase 2***************")
         our_cache = LRU_Cache(2)
 
         our_cache.set(1,1)
