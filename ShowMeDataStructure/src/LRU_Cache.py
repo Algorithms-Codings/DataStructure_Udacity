@@ -6,8 +6,9 @@ Created on Apr 8, 2020
 '''
 
 class Node(object):
-    def __init__(self,value):
+    def __init__(self,key,value):
         self.value=value
+        self.key=key
         self.prev=None
         self.next=None
     
@@ -16,8 +17,8 @@ class LinkedList(object):
         self.head=None #Least recently used key
         self.tail=None #most recently used key
         
-    def addMostRecentlyItem(self,value): #add element in Linked List whenever  new element is added
-        n=Node(value)
+    def addMostRecentlyItem(self,key,value): #add element in Linked List whenever  new element is added
+        n=Node(key,value)
         if self.head is None:
             self.head=n
             self.tail=self.head
@@ -31,8 +32,10 @@ class LinkedList(object):
     def removeLeastRecentlyItem(self):
         if self.head==None:
             return
+        key=self.head.key
         self.head=self.head.next
         self.head.prev=None
+        return key
         
     def getMostRecentlyItem(self):
         return self.tail
@@ -70,7 +73,7 @@ class LinkedList(object):
     def print(self):        
         node=self.head
         while node is not None:
-            print("{}".format(node.value),end=",")
+            print("{}-{}".format(node.key,node.value),end=",")
             node=node.next
         
 class LRU_Cache(object):
@@ -80,8 +83,7 @@ class LRU_Cache(object):
         self.MAX_SIZE=capacity
         self.no_elements=0
         self.cache={}
-        self.LRU=LinkedList(capacity)   
-        pass
+        self.LRU=LinkedList(capacity)
 
     def get(self, key):
         # Retrieve item from provided key. Return -1 if nonexistent. 
@@ -91,24 +93,27 @@ class LRU_Cache(object):
             return n.value               
         else:
             return -1        
-        pass
 
     def set(self, key,value):
         # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item.
        
         if key in self.cache: #if key is present
+            lNode=self.cache[key]
+            if(lNode.value!=value): #overwrite the node value for the existing key
+                lNode.value=value
+                self.cache[key]=lNode
+            self.LRU.changeMostRecentlyItem(lNode)
             return
         
-        if self.isCacheFull():
-            lNode=self.LRU.getLeastRecentlyItem()
-            self.LRU.removeLeastRecentlyItem()
-            self.cache.pop(lNode.value)
-            self.no_elements-=1            
-        n=self.LRU.addMostRecentlyItem(value)           
-
-        self.no_elements+=1
-        self.cache[value]=n
-        pass
+        if self.isCacheFull(): #if key is not present and cache is full
+            #lNode=self.LRU.getLeastRecentlyItem()
+            leastItemKey=self.LRU.removeLeastRecentlyItem() #remove the least item from LRU list
+            self.cache.pop(leastItemKey)  #remove the entry from cache
+            self.no_elements-=1 #decrease the size by 1
+        n=self.LRU.addMostRecentlyItem(key,value)      #add node in LRU as last node     
+        self.no_elements+=1 #increase the size by 1
+        self.cache[key]=n #add new node entry in cache dictionary
+        
     
     def cacheSize(self):
         return self.no_elements
