@@ -95,19 +95,19 @@ class LRU_Cache(object):
 
     def set(self, key,value):
         # Set the value if the key is not present in the cache. If the cache is at capacity remove the oldest item.
-        if key is None or key=="":
-            key=value
-        if key in self.cache:
+       
+        if key in self.cache: #if key is present
             return
+        
         if self.isCacheFull():
             lNode=self.LRU.getLeastRecentlyItem()
             self.LRU.removeLeastRecentlyItem()
             self.cache.pop(lNode.value)
             self.no_elements-=1            
-        n=self.LRU.addMostRecentlyItem(key)           
+        n=self.LRU.addMostRecentlyItem(value)           
 
         self.no_elements+=1
-        self.cache[key]=n
+        self.cache[value]=n
         pass
     
     def cacheSize(self):
