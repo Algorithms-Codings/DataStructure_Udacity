@@ -55,6 +55,58 @@ class HuffmanEncodingTest(unittest.TestCase):
         hc.huffman_decoding()
         decoded_string=hc.decodedString
         print("Decoded String:",decoded_string)
+        self.assertEqual(sentence,decoded_string)
+    def test_repeatChars(self):
+        print("****Test: Encode- test_repeatCharsg*********")
+
+        sentence = "ababaabccdddeeefffgggaacc"  
+        print("Original String:",sentence)     
+        hc = HuffmanCoding(sentence)
+        hc.huffman_encoding()
+        encodedString=hc.encodedString
+        print("Encoded String",encodedString)
+        hc.huffman_decoding()
+        decoded_string=hc.decodedString
+        print("Decoded String:",decoded_string)
+        self.assertEqual(sentence,decoded_string) 
+    def test_oneChar(self):
+        print("****Test: Encode- One char*********")
+
+        sentence = "a"  
+        print("Original String:",sentence)     
+        hc = HuffmanCoding(sentence)
+        hc.huffman_encoding()
+        encodedString=hc.encodedString
+        print("Encoded String",encodedString)
+        hc.huffman_decoding()
+        decoded_string=hc.decodedString
+        print("Decoded String:",decoded_string)
+        self.assertEqual(sentence,decoded_string)
+    def test_repeatSameChar(self):
+        print("****Test: Encode- test_repeatSameChar*********")
+
+        sentence = "fff"  
+        print("Original String:",sentence)     
+        hc = HuffmanCoding(sentence)
+        hc.huffman_encoding()
+        encodedString=hc.encodedString
+        print("Encoded String",encodedString)
+        hc.huffman_decoding()
+        decoded_string=hc.decodedString
+        print("Decoded String:",decoded_string)
+        self.assertEqual(sentence,decoded_string)    
+    def test_twoChar(self):
+        print("****Test: Encode- two char*********")
+
+        sentence = "ab"  
+        print("Original String:",sentence)     
+        hc = HuffmanCoding(sentence)
+        hc.huffman_encoding()
+        encodedString=hc.encodedString
+        print("Encoded String",encodedString)
+        hc.huffman_decoding()
+        decoded_string=hc.decodedString
+        print("Decoded String:",decoded_string)
         self.assertEqual(sentence,decoded_string)    
 
 if __name__ == '__main__':

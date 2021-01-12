@@ -22,16 +22,26 @@ class HuffmanTree(object):
         self.binary={}
         
     def generateTree(self):
-       while(len(self.freqList)!=1):
+        if(len(self.freqList)==1):
+           #self.root=self.freqList.pop()
+           #self.root.binary="0"
+           #self.binary[self.root.char]="0"
            node1=self.freqList[0]
-           node2=self.freqList[1]
-           node3=Node("#",node1.freq+node2.freq,node1,node2)            
+           node3=Node("#",node1.freq,node1)            
            self.freqList.remove(node1)
-           self.freqList.remove(node2)
            self.freqList.append(node3)
-           self.freqList=self.sort_frequency_List()       
-       self.root=self.freqList.pop()
-       self.assignBinary()
+           self.freqList=self.sort_frequency_List() 
+        else:    
+            while(len(self.freqList)!=1):
+                node1=self.freqList[0]
+                node2=self.freqList[1]
+                node3=Node("#",node1.freq+node2.freq,node1,node2)            
+                self.freqList.remove(node1)
+                self.freqList.remove(node2)
+                self.freqList.append(node3)
+                self.freqList=self.sort_frequency_List()       
+        self.root=self.freqList.pop()
+        self.assignBinary()
     
     def assignBinary(self):
         self.assignBinaryToNode(self.root,"")  
@@ -50,7 +60,8 @@ class HuffmanTree(object):
         for i in set(rawData):
             n=Node(i, rawData.count(i))
             self.freqList.append(n)
-        return self.sort_frequency_List()
+        self.freqList=self.sort_frequency_List()
+        #print(self.freqList)
     
     def sort_frequency_List(self):
         sorted_freq_list= sorted(self.freqList, key = lambda x: x.freq)
@@ -122,4 +133,3 @@ class HuffmanCoding(object):
             decodedString=decodedString+tempString
             tempString="" 
         self.decodedString=decodedString
-        

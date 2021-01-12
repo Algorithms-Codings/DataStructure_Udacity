@@ -37,6 +37,13 @@ class FileRecursionTest(unittest.TestCase):
         print("**************************test_unknowPath ************************************")
         fr=FileRecursion()
         files=fr.find_files("c","E:/Udacity_DataStr/DataStructure_Udacity/ShowMeDataStructure/testdir123")
-        self.assertEqual(files ,None)        
+        self.assertEqual(files ,None)       
+    def test_fileasPath(self):
+        print("**************************assertEqual ************************************")
+        fr=FileRecursion()
+        files=fr.find_files("c","E:/Udacity_DataStr/DataStructure_Udacity/ShowMeDataStructure/testdir/subdir5/a.c")
+        self.assertEqual(len(files) ,1)  
+        
+ 
 if __name__ == '__main__':
     FileRecursionTest.main()

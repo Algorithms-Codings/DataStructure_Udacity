@@ -29,12 +29,19 @@ class FileRecursion(object):
     def __init__(self):
         return
     def find_files(self,suffix, path):
+        files=[] #list of paths
         if(path is None  or path=="" or suffix is None or suffix==""):
             return None
         if(exists(path)==False):
             return None
-    
-        files=[] #list of paths
+        if(isdir(path)==False): # if given path file instead of folder
+            if(path.endswith("."+suffix)): #if file ends with expected suffix, appends them in the list
+                files.append(path)
+                return files
+            else:
+                return None
+            
+        
         #print("path=",path)
         filesFolders=listdir(path)
         for item in filesFolders:
